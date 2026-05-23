@@ -381,30 +381,397 @@
 
     .exercise-card {
       display: grid;
-      grid-template-columns: 180px 1fr;
+      grid-template-columns: minmax(290px, 340px) minmax(0, 1fr);
       gap: 16px;
       padding: 16px;
       border-radius: 24px;
       background: #fffdf8;
       border: 1px solid var(--line);
       box-shadow: 0 10px 26px rgba(18, 35, 41, 0.06);
-      animation: rise 560ms ease both;
     }
 
     .exercise-media {
       position: relative;
       overflow: hidden;
-      border-radius: 18px;
+      display: grid;
+      align-items: stretch;
+      min-height: 320px;
+      border-radius: 22px;
       background:
-        linear-gradient(180deg, rgba(17, 38, 43, 0.16), rgba(17, 38, 43, 0.02)),
-        linear-gradient(135deg, rgba(255, 107, 53, 0.12), rgba(44, 200, 193, 0.1));
-      min-height: 214px;
+        linear-gradient(180deg, rgba(17, 38, 43, 0.02), rgba(17, 38, 43, 0.42)),
+        linear-gradient(135deg, rgba(255, 107, 53, 0.18), rgba(44, 200, 193, 0.14));
+      isolation: isolate;
     }
 
     .exercise-media img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: var(--photo-position, center center);
+      filter: saturate(1.02) contrast(1.02);
+    }
+
+    .exercise-media.is-anatomy {
+      min-height: 340px;
+      padding: 14px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(245, 241, 233, 0.98)),
+        radial-gradient(circle at top right, rgba(255, 107, 53, 0.08), transparent 34%);
+    }
+
+    .exercise-media.is-anatomy.anatomy-single {
+      padding: 12px;
+    }
+
+    .exercise-media.is-anatomy.is-poster {
+      padding: 16px;
+    }
+
+    .exercise-media.is-anatomy::after {
+      display: none;
+    }
+
+    .exercise-media.is-anatomy.anatomy-single > img {
+      position: relative;
+      z-index: 1;
+      object-fit: contain;
+      object-position: center center;
+      filter: none;
+    }
+
+    .exercise-media-header {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .media-kicker,
+    .media-summary {
+      border-radius: 16px;
+      border: 1px solid rgba(19, 35, 41, 0.1);
+      background: rgba(255, 255, 255, 0.94);
+      color: var(--ink);
+      box-shadow: 0 10px 24px rgba(18, 35, 41, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .media-kicker {
+      padding: 10px 12px;
+      min-width: 112px;
+    }
+
+    .media-kicker strong,
+    .media-summary strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7c6d5c;
+    }
+
+    .media-kicker span {
+      display: block;
+      font-size: 0.94rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .media-summary {
+      max-width: 220px;
+      padding: 10px 12px;
+    }
+
+    .media-summary-line {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      color: #46595d;
+    }
+
+    .media-summary-line + .media-summary-line {
+      margin-top: 4px;
+    }
+
+    .media-note {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 52px;
+      z-index: 3;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 248, 241, 0.96);
+      border: 1px solid rgba(255, 107, 53, 0.16);
+      color: #8b471f;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      box-shadow: 0 10px 24px rgba(18, 35, 41, 0.08);
+    }
+
+    .exercise-media.is-gallery {
+      padding: 12px;
+      min-height: 340px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 242, 235, 0.98)),
+        radial-gradient(circle at top right, rgba(255, 107, 53, 0.07), transparent 32%);
+    }
+
+    .gallery-track {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      gap: 12px;
+      height: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(19, 35, 41, 0.22) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gallery-track::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .gallery-track::-webkit-scrollbar-thumb {
+      background: rgba(19, 35, 41, 0.22);
+      border-radius: 999px;
+    }
+
+    .gallery-slide {
+      margin: 0;
+      display: grid;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(19, 35, 41, 0.08);
+      scroll-snap-align: start;
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      min-height: 284px;
+      object-fit: contain;
+      object-position: center center;
+      filter: none;
+    }
+
+    .gallery-slide figcaption {
+      text-align: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #6b6358;
+    }
+
+    .slide-credit {
+      text-align: center;
+      font-size: 0.68rem;
+      line-height: 1.4;
+      color: #7c6d5c;
+    }
+
+    .slide-credit a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .slide-credit a:hover {
+      text-decoration: underline;
+    }
+
+    .anatomy-frame-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      height: 100%;
+    }
+
+    .anatomy-frame {
+      margin: 0;
+      display: grid;
+      gap: 8px;
+      align-content: stretch;
+      padding: 10px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 246, 240, 0.98));
+      border: 1px solid rgba(19, 35, 41, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    }
+
+    .anatomy-frame img {
+      width: 100%;
+      min-height: 230px;
+      height: 100%;
+      object-fit: contain;
+      object-position: var(--frame-position, center center);
+      filter: none;
+    }
+
+    .anatomy-frame figcaption {
+      text-align: center;
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #6b6358;
+    }
+
+    .poster-body {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 170px;
+      gap: 16px;
+      align-items: stretch;
+      height: 100%;
+      padding-top: 70px;
+    }
+
+    .poster-copy {
+      display: grid;
+      gap: 12px;
+      align-content: center;
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 246, 240, 0.96));
+      border: 1px solid rgba(19, 35, 41, 0.08);
+    }
+
+    .poster-copy h5 {
+      margin: 0;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .poster-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.66;
+    }
+
+    .poster-note {
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255, 107, 53, 0.09);
+      color: #8b471f;
+      font-size: 0.82rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .exercise-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(17, 38, 43, 0.08) 0%, rgba(17, 38, 43, 0) 28%, rgba(17, 38, 43, 0.52) 100%),
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.14), transparent 26%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .pin-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .muscle-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      max-width: 72%;
+      background: rgba(17, 38, 43, 0.78);
+      color: #f7f4ee;
+      font-size: 0.74rem;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 12px 24px rgba(12, 24, 26, 0.22);
+      backdrop-filter: blur(6px);
+    }
+
+    .muscle-pin::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+    }
+
+    .muscle-pin.primary::before {
+      background: var(--primary);
+    }
+
+    .muscle-pin.secondary::before {
+      background: var(--secondary);
+    }
+
+    .media-credit {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 12px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.76rem;
+      color: #eef5f0;
+    }
+
+    .media-credit a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(17, 38, 43, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #eef5f0;
+      backdrop-filter: blur(6px);
+    }
+
+    .media-credit span {
+      opacity: 0.92;
+    }
+
+    .exercise-media.is-anatomy .media-credit {
+      color: var(--muted);
+    }
+
+    .exercise-media.is-anatomy .media-credit a {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(19, 35, 41, 0.12);
+      color: var(--ink);
+    }
+
+    .exercise-body.brief .cue-list {
+      display: none;
     }
 
     .exercise-body {
@@ -461,9 +828,7 @@
 
     .map-box {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 14px;
-      align-items: center;
+      gap: 12px;
       padding: 14px;
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(17, 38, 43, 0.04), rgba(17, 38, 43, 0.02));
@@ -476,10 +841,58 @@
       line-height: 1.55;
     }
 
-    .muscle-svg {
-      width: 176px;
-      height: auto;
+    .map-visuals {
+      display: grid;
+      gap: 10px;
+    }
+
+    .focus-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .focus-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(19, 35, 41, 0.07);
+      color: var(--ink);
+    }
+
+    .focus-chip::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
       flex: 0 0 auto;
+    }
+
+    .focus-chip.primary::before {
+      background: var(--primary);
+    }
+
+    .focus-chip.secondary::before {
+      background: var(--secondary);
+    }
+
+    .muscle-figure {
+      width: 100%;
+      max-width: 182px;
+      padding: 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(19, 35, 41, 0.09);
+    }
+
+    .muscle-svg {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     .muted {
@@ -532,17 +945,6 @@
       margin: 16px 0;
     }
 
-    @keyframes rise {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
     @media (max-width: 1080px) {
       .hero-panel,
       .callout,
@@ -568,15 +970,51 @@
       }
 
       .exercise-media {
-        min-height: 240px;
+        min-height: 360px;
       }
 
-      .map-box {
+      .anatomy-frame-grid {
         grid-template-columns: 1fr;
       }
 
-      .muscle-svg {
-        width: 100%;
+      .exercise-media-header {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        padding-bottom: 12px;
+      }
+
+      .poster-body {
+        grid-template-columns: 1fr;
+        padding-top: 0;
+      }
+
+      .media-note {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        margin-top: 12px;
+      }
+
+      .anatomy-frame img {
+        min-height: 220px;
+      }
+
+      .muscle-pin {
+        max-width: min(68%, 240px);
+      }
+
+      .media-credit {
+        flex-wrap: wrap;
+      }
+
+      .map-visuals {
+        grid-template-columns: 1fr;
+      }
+
+      .muscle-figure {
         max-width: 220px;
       }
     }
@@ -611,6 +1049,31 @@
         height: 52px;
         border-radius: 16px;
       }
+
+      .exercise-media {
+        min-height: 300px;
+      }
+
+      .exercise-media.is-anatomy {
+        min-height: 280px;
+      }
+
+      .exercise-media.is-gallery {
+        min-height: 300px;
+      }
+
+      .gallery-slide img {
+        min-height: 240px;
+      }
+
+      .anatomy-frame img {
+        min-height: 170px;
+      }
+
+      .muscle-pin {
+        max-width: 84%;
+        font-size: 0.71rem;
+      }
     }
 
     @media (max-width: 520px) {
@@ -635,12 +1098,13 @@
       <div class="hero-copy">
         <span class="eyebrow"><span class="dot"></span>Lich tap xoay vong cho xa + day khang luc</span>
         <h1>Tap theo buoi,<br>khong can gan thu.</h1>
-        <p><strong>Muc tieu:</strong> uu tien vai rong, lung mo, nguc day, chan van can doi. Lich nay chia theo <strong>Buoi 1 -> 2 -> 3 -> 4</strong>, nen neu ban bo lo 1 hom thi lan sau chi viec tap tiep buoi ke. Khong can dan lai theo thu 2, 3, 4.</p>
+        <p><strong>Muc tieu:</strong> uu tien vai rong, lung mo, nguc day, chan van can doi. Lich nay chia theo <strong>Buoi 1 -> 2 -> 3 -> 4 -> 5</strong>, nen neu ban bo lo 1 hom thi lan sau chi viec tap tiep buoi ke. Khong can dan lai theo thu trong tuan.</p>
         <div class="quick-links">
           <a href="#buoi-1">Buoi 1</a>
           <a href="#buoi-2">Buoi 2</a>
           <a href="#buoi-3">Buoi 3</a>
           <a href="#buoi-4">Buoi 4</a>
+          <a href="#buoi-5">Buoi 5</a>
         </div>
       </div>
 
@@ -648,7 +1112,7 @@
         <section class="hero-card">
           <h2>Cach chay lich</h2>
           <ul class="hero-list">
-            <li>Tuan dep thi tap 4 buoi: 1 -> 2 -> 3 -> 4.</li>
+            <li>Tuan dep thi tap 5 buoi: 1 -> 2 -> 3 -> 4 -> 5.</li>
             <li>Tuan ban chi tap 2-3 buoi: dung o dau thi lan sau tap tiep o do.</li>
             <li>Moi buoi co muc tieu ~30 phut, uu tien form sach truoc khi them reps.</li>
           </ul>
@@ -677,7 +1141,7 @@
       <section class="summary-grid" aria-label="Tom tat">
         <article class="summary-card">
           <span class="label">Tong so buoi</span>
-          <div class="value">4 buoi xoay vong</div>
+          <div class="value">5 buoi xoay vong</div>
         </article>
         <article class="summary-card">
           <span class="label">Thoi gian</span>
@@ -689,7 +1153,7 @@
         </article>
         <article class="summary-card">
           <span class="label">Chan + core</span>
-          <div class="value">Van giu du volume</div>
+          <div class="value">Chan + core van du volume</div>
         </article>
       </section>
 
@@ -717,39 +1181,191 @@
 
       <section class="footer">
         <h4>Ghi chu ve anh va nguon</h4>
-        <p>Toan bo GIF minh hoa trong trang nay da duoc tai ve repo tai thu muc <code>assets/exercises</code>, nen mo file offline van xem duoc. Nguon media: <a href="https://github.com/hasaneyldrm/exercises-dataset" target="_blank" rel="noreferrer">hasaneyldrm/exercises-dataset</a> tren GitHub. Muscle map la minh hoa SVG duoc nhung truc tiep trong file HTML de de nhin nhanh nhom co chinh/phu cua tung bai.</p>
+        <p>Trang nay uu tien local anatomy loop va frame anatomy nen sang, co khung co do ro, de nhin la biet ngay nhom co tac dong. Bai nao chua co asset dung bien the se lui ve poster anatomy thay vi chen anh lac style.</p>
         <div class="divider"></div>
-        <p class="helper">Luu y nho: dataset anh goc ghi ro muc dich giao duc / ca nhan. Phu hop voi repo lich tap ca nhan cua ban.</p>
+        <p class="helper">Muc tieu la giu mot he style anatomy thong nhat, uu tien dung bai, dung dung cu, va thong tin co chinh/co ho tro hien ngay tren media block.</p>
       </section>
     </div>
   </main>
 
   <script>
+    const localFile = (file) => `assets/${file}`;
+    const anatomyLoop = (file, credit = "Loop anatomy local") => ({
+      variant: "anatomy-single",
+      src: localFile(`exercises/${file}`),
+      credit
+    });
+    const anatomyFrame = (file, label, position) => ({
+      src: localFile(`photos/${file}`),
+      label,
+      position
+    });
+    const anatomyFrames = (frames, credit = "Frame anatomy local", note = "") => ({
+      variant: "anatomy",
+      frames,
+      credit,
+      note
+    });
+    const anatomyPoster = (note, credit = "Poster anatomy fallback") => ({
+      variant: "poster",
+      note,
+      credit
+    });
+
+    const photoLibrary = {
+      pushUpLoop: anatomyLoop("push-up.gif"),
+      bandPushUpFallback: anatomyFrames([
+        anatomyFrame("push-up-top.png", "Pha day manh"),
+        anatomyFrame("push-up-bottom.png", "Pha ha xuong")
+      ], "Frame anatomy local", "Ban co the dat day qua lung de bien the thanh band push-up."),
+      pikePushUpPoster: anatomyPoster("Chua co asset local dung chuan cho pike push-up. Tam thoi uu tien poster anatomy de giu style sach va dung nhom co."),
+      bandFrontLateralRaiseLoop: anatomyLoop("band-front-lateral-raise.gif"),
+      bandShoulderPressLoop: anatomyLoop("band-shoulder-press.gif"),
+      bandTricepsLoop: anatomyLoop("band-side-triceps-extension.gif"),
+      wideHandPushUpLoop: anatomyLoop("wide-hand-push-up.gif"),
+      pullUpLoop: anatomyLoop("pull-up.gif"),
+      chinUpLoop: anatomyLoop("chin-up.gif"),
+      bandRowLoop: anatomyLoop("band-one-arm-standing-low-row.gif"),
+      bandReverseFlyLoop: anatomyLoop("band-reverse-fly.gif"),
+      bandCurlLoop: anatomyLoop("band-alternating-biceps-curl.gif"),
+      bandRdlLoop: anatomyLoop("band-stiff-leg-deadlift.gif"),
+      bandSquatLoop: anatomyLoop("band-squat.gif"),
+      splitSquatLoop: anatomyLoop("split-squats.gif"),
+      hangingLegRaiseLoop: anatomyLoop("hanging-leg-raise.gif"),
+      plankTwistLoop: anatomyLoop("front-plank-with-twist.gif"),
+      deadHangPoster: anatomyPoster("Tam thoi hien poster anatomy vi repo chua co loop dead hang rieng. Tu the can giu vai tha xuong, cot song keo dai."),
+      bandYRaiseLoop: anatomyLoop("band-y-raise.gif"),
+      bodyweightSquatPoster: anatomyPoster("Tam thoi hien poster anatomy de tranh dung anh co day khang luc sai bien the. Bai nay tap tu do, uu tien dui truoc va mong."),
+      hollowHoldPoster: anatomyPoster("Tam thoi hien poster anatomy de giu dung style. Bai nay an manh vao core, bung duoi va hip flexor."),
+      hangingObliqueKneeRaiseLoop: anatomyLoop("hanging-oblique-knee-raise.gif")
+    };
+
     const exerciseLibrary = {
       pushUp: {
         name: "Push-up",
-        focus: "Nguc day + tay sau",
-        media: "assets/exercises/push-up.gif",
+        focus: "Nguc + vai truoc + tay sau",
+        photoKey: "pushUpLoop",
         equipment: "Bodyweight",
         primaryMuscles: ["Nguc"],
         secondaryMuscles: ["Vai truoc", "Tay sau", "Core"],
-        primaryRegions: ["chest"],
-        secondaryRegions: ["shoulders", "triceps", "core"],
+        brief: true,
+        pins: [
+          { label: "Nguc", tone: "primary", top: "39%", left: "34%" },
+          { label: "Vai truoc", tone: "secondary", top: "31%", left: "23%" },
+          { label: "Tay sau", tone: "secondary", top: "50%", left: "48%" }
+        ],
         cues: [
           "Giu than nguoi thanh 1 duong thang, core siep chat tu dau den got chan.",
           "Ha xuong co kiem soat den khi nguc gan cham san, khong rung lung duoi.",
           "Day len bang nguc va tay sau, khuyu tay khong xoe qua rong."
         ]
       },
+      bandPushUp: {
+        name: "Band Push Up",
+        focus: "Nguc giua + vai truoc + tay sau",
+        photoKey: "bandPushUpFallback",
+        equipment: "Band",
+        primaryMuscles: ["Nguc"],
+        secondaryMuscles: ["Vai truoc", "Tay sau", "Core"],
+        brief: true,
+        pins: [
+          { label: "Nguc", tone: "primary", top: "39%", left: "34%" },
+          { label: "Vai truoc", tone: "secondary", top: "31%", left: "23%" },
+          { label: "Tay sau", tone: "secondary", top: "50%", left: "48%" }
+        ],
+        cues: [
+          "Giu core cung, xuong co kiem soat va day len that sach.",
+          "Set band sao cho luc day len van con 1-2 reps du tru.",
+          "Khuyu tay khong xoe qua rong de giu nguc an vao nhieu hon."
+        ]
+      },
+      pikePushUp: {
+        name: "Pike Push Up",
+        focus: "Vai giua + vai truoc + nguc tren",
+        photoKey: "pikePushUpPoster",
+        equipment: "Bodyweight",
+        primaryMuscles: ["Vai"],
+        secondaryMuscles: ["Nguc", "Tay sau", "Core"],
+        brief: true,
+        pins: [
+          { label: "Vai", tone: "primary", top: "24%", left: "61%" },
+          { label: "Nguc", tone: "secondary", top: "40%", left: "56%" },
+          { label: "Tay sau", tone: "secondary", top: "31%", left: "77%" }
+        ],
+        cues: [
+          "Day hong len cao de than tren thanh tam giac vung hon.",
+          "Ha dau xuong co kiem soat, khong de co may qua nhieu.",
+          "Tap trung vao vai truoc khi nghi den nguc."
+        ]
+      },
+      bandLateralRaise: {
+        name: "Band Lateral Raise",
+        focus: "Vai ngang",
+        photoKey: "bandFrontLateralRaiseLoop",
+        equipment: "Band",
+        primaryMuscles: ["Vai"],
+        secondaryMuscles: ["Trap"],
+        brief: true,
+        pins: [
+          { label: "Vai", tone: "primary", top: "29%", left: "43%" },
+          { label: "Trap", tone: "secondary", top: "18%", left: "40%" },
+          { label: "Lung tren", tone: "secondary", top: "38%", left: "31%" }
+        ],
+        cues: [
+          "Nang theo cung nhe, khong rut vai len tai.",
+          "Dinh rep dung o ngang vai de giu tension o vai ngang.",
+          "Chan band vua du, khong can nang qua cao."
+        ]
+      },
+      bandFrontRaise: {
+        name: "Band Front Raise",
+        focus: "Vai truoc",
+        photoKey: "bandFrontLateralRaiseLoop",
+        equipment: "Band",
+        primaryMuscles: ["Vai"],
+        secondaryMuscles: ["Trap", "Lung tren"],
+        brief: true,
+        pins: [
+          { label: "Vai", tone: "primary", top: "29%", left: "43%" },
+          { label: "Trap", tone: "secondary", top: "18%", left: "40%" },
+          { label: "Lung tren", tone: "secondary", top: "38%", left: "31%" }
+        ],
+        cues: [
+          "Nang tay truoc mat, khong dung dan day than nguoi ra sau.",
+          "Giu co tay thoai mai, khong co vai qua manh.",
+          "Diem cuoi chi can ngang vai la du."
+        ]
+      },
+      overheadBandTricepExtension: {
+        name: "Overhead Band Tricep Extension",
+        focus: "Tay sau",
+        photoKey: "bandTricepsLoop",
+        equipment: "Band",
+        primaryMuscles: ["Tay sau"],
+        secondaryMuscles: ["Vai"],
+        brief: true,
+        pins: [
+          { label: "Tay sau", tone: "primary", top: "34%", left: "76%" },
+          { label: "Vai", tone: "secondary", top: "23%", left: "67%" }
+        ],
+        cues: [
+          "Co dinh khuyu tay va duoi that cham o cuoi rep.",
+          "Khong de vai quay theo day, giu than tren on dinh.",
+          "Chi can do cang vua du de tay sau lam viec that."
+        ]
+      },
       wideHandPushUp: {
         name: "Wide Hand Push Up",
         focus: "Them volume cho nguc, mo be ngang than tren",
-        media: "assets/exercises/wide-hand-push-up.gif",
+        photoKey: "wideHandPushUpLoop",
         equipment: "Bodyweight",
         primaryMuscles: ["Nguc"],
         secondaryMuscles: ["Vai truoc", "Tay sau"],
-        primaryRegions: ["chest"],
-        secondaryRegions: ["shoulders", "triceps"],
+        pins: [
+          { label: "Nguc", tone: "primary", top: "20%", left: "72%" },
+          { label: "Vai truoc", tone: "secondary", top: "9%", left: "60%" },
+          { label: "Tay sau", tone: "secondary", top: "31%", left: "48%" }
+        ],
         cues: [
           "Dat tay rong hon vai mot chut, van giu co tay thoai mai.",
           "Huong khuyu tay cheo 45-60 do, tranh be ngang qua muc.",
@@ -758,13 +1374,17 @@
       },
       bandShoulderPress: {
         name: "Band Shoulder Press",
-        focus: "Vai day hon, giup than tren tron va manh",
-        media: "assets/exercises/band-shoulder-press.gif",
+        focus: "Vai + tay sau",
+        photoKey: "bandShoulderPressLoop",
         equipment: "Band",
         primaryMuscles: ["Vai"],
         secondaryMuscles: ["Tay sau", "Lung tren"],
-        primaryRegions: ["shoulders"],
-        secondaryRegions: ["triceps", "upperBack"],
+        brief: true,
+        pins: [
+          { label: "Vai", tone: "primary", top: "24%", left: "61%" },
+          { label: "Lung tren", tone: "secondary", top: "18%", left: "41%" },
+          { label: "Tay sau", tone: "secondary", top: "31%", left: "77%" }
+        ],
         cues: [
           "Dung len day, core cung, mong siep de lung duoi khong vong.",
           "Day band thang len qua dau theo duong doc, khong he vai len tai.",
@@ -773,13 +1393,17 @@
       },
       bandFrontLateralRaise: {
         name: "Band Front Lateral Raise",
-        focus: "Day front delt va tang cam giac mo vai",
-        media: "assets/exercises/band-front-lateral-raise.gif",
+        focus: "Vai truoc + trap",
+        photoKey: "bandFrontLateralRaiseLoop",
         equipment: "Band",
         primaryMuscles: ["Vai"],
         secondaryMuscles: ["Trap", "Lung tren"],
-        primaryRegions: ["shoulders"],
-        secondaryRegions: ["upperBack"],
+        brief: true,
+        pins: [
+          { label: "Vai", tone: "primary", top: "29%", left: "43%" },
+          { label: "Trap", tone: "secondary", top: "18%", left: "40%" },
+          { label: "Lung tren", tone: "secondary", top: "38%", left: "31%" }
+        ],
         cues: [
           "Buoc chan len day cho do cang vua du, tay nang co kiem soat.",
           "Nang len den ngang vai, khong rut co hay dung da.",
@@ -788,13 +1412,16 @@
       },
       bandSideTricepsExtension: {
         name: "Band Side Triceps Extension",
-        focus: "Day tay sau de luc day manh hon",
-        media: "assets/exercises/band-side-triceps-extension.gif",
+        focus: "Tay sau + vai",
+        photoKey: "bandTricepsLoop",
         equipment: "Band",
         primaryMuscles: ["Tay sau"],
         secondaryMuscles: ["Vai"],
-        primaryRegions: ["triceps"],
-        secondaryRegions: ["shoulders"],
+        brief: true,
+        pins: [
+          { label: "Tay sau", tone: "primary", top: "34%", left: "76%" },
+          { label: "Vai", tone: "secondary", top: "23%", left: "67%" }
+        ],
         cues: [
           "Co dinh khuyu tay, chi duoi canh tay ra het bien do.",
           "Khong de vai quay theo huong keo cua day.",
@@ -803,13 +1430,17 @@
       },
       pullUp: {
         name: "Pull-up",
-        focus: "Bai nen de mo xo va tao V-taper",
-        media: "assets/exercises/pull-up.gif",
+        focus: "Xo + lung tren + tay truoc",
+        photoKey: "pullUpLoop",
         equipment: "Bodyweight / Xa",
         primaryMuscles: ["Xo"],
         secondaryMuscles: ["Tay truoc", "Cang tay"],
-        primaryRegions: ["lats"],
-        secondaryRegions: ["biceps", "forearms"],
+        brief: true,
+        pins: [
+          { label: "Xo", tone: "primary", top: "36%", left: "52%" },
+          { label: "Tay truoc", tone: "secondary", top: "25%", left: "78%" },
+          { label: "Cang tay", tone: "secondary", top: "10%", left: "19%" }
+        ],
         cues: [
           "Bat dau tu dead hang, ha vai xuong truoc khi keo nguoi len.",
           "Nghi den khuyu tay di xuong va vao hong, khong chi co keo bang tay.",
@@ -818,13 +1449,17 @@
       },
       chinUp: {
         name: "Chin-up",
-        focus: "Them do day lung + tay truoc",
-        media: "assets/exercises/chin-up.gif",
+        focus: "Tay truoc + xo duoi",
+        photoKey: "chinUpLoop",
         equipment: "Bodyweight / Xa",
         primaryMuscles: ["Xo"],
         secondaryMuscles: ["Tay truoc", "Cang tay"],
-        primaryRegions: ["lats"],
-        secondaryRegions: ["biceps", "forearms"],
+        brief: true,
+        pins: [
+          { label: "Xo", tone: "primary", top: "36%", left: "52%" },
+          { label: "Tay truoc", tone: "secondary", top: "25%", left: "78%" },
+          { label: "Cang tay", tone: "secondary", top: "10%", left: "19%" }
+        ],
         cues: [
           "Long ban tay huong ve nguoi, nguc mo va vai ha xuong.",
           "Keo len sach, tranh giat hong de hack rep.",
@@ -832,14 +1467,18 @@
         ]
       },
       bandLowRow: {
-        name: "Band One Arm Standing Low Row",
-        focus: "Day lung giua de than tren day va dung dang dep hon",
-        media: "assets/exercises/band-one-arm-standing-low-row.gif",
+        name: "Resistance Band Row",
+        focus: "Lung giua + vai sau",
+        photoKey: "bandRowLoop",
         equipment: "Band",
         primaryMuscles: ["Lung giua"],
         secondaryMuscles: ["Tay truoc", "Vai sau"],
-        primaryRegions: ["upperBack"],
-        secondaryRegions: ["biceps", "shoulders"],
+        brief: true,
+        pins: [
+          { label: "Lung giua", tone: "primary", top: "47%", left: "52%" },
+          { label: "Vai sau", tone: "secondary", top: "33%", left: "78%" },
+          { label: "Tay truoc", tone: "secondary", top: "30%", left: "22%" }
+        ],
         cues: [
           "Neo day ngang thap, keo khuyu tay sat hong va ra sau.",
           "Cuoi dong tac nho siet bai vai vao nhau 1 nhip ngan.",
@@ -847,14 +1486,18 @@
         ]
       },
       bandReverseFly: {
-        name: "Band Reverse Fly",
-        focus: "Vai sau + upper back cho posture dep",
-        media: "assets/exercises/band-reverse-fly.gif",
+        name: "Band Face Pull",
+        focus: "Vai sau + upper back",
+        photoKey: "bandReverseFlyLoop",
         equipment: "Band",
         primaryMuscles: ["Vai sau"],
         secondaryMuscles: ["Lung tren", "Trap"],
-        primaryRegions: ["shoulders"],
-        secondaryRegions: ["upperBack"],
+        brief: true,
+        pins: [
+          { label: "Vai sau", tone: "primary", top: "31%", left: "78%" },
+          { label: "Lung tren", tone: "secondary", top: "46%", left: "52%" },
+          { label: "Trap", tone: "secondary", top: "20%", left: "52%" }
+        ],
         cues: [
           "Giu nguc mo, tay hoi cong nhe, mo hai tay sang hai ben.",
           "Tap trung vao vai sau va bai vai, khong keo bang co co.",
@@ -862,29 +1505,54 @@
         ]
       },
       bandBicepsCurl: {
-        name: "Band Alternating Biceps Curl",
-        focus: "Them volume tay truoc ma khong ton nhieu thoi gian",
-        media: "assets/exercises/band-alternating-biceps-curl.gif",
+        name: "Resistance Band Bicep Curl",
+        focus: "Tay truoc",
+        photoKey: "bandCurlLoop",
         equipment: "Band",
         primaryMuscles: ["Tay truoc"],
         secondaryMuscles: ["Cang tay"],
-        primaryRegions: ["biceps"],
-        secondaryRegions: ["forearms"],
+        brief: true,
+        pins: [
+          { label: "Tay truoc", tone: "primary", top: "36%", left: "79%" },
+          { label: "Cang tay", tone: "secondary", top: "41%", left: "58%" }
+        ],
         cues: [
           "Ep khuyu tay sat suon, co dinh vai.",
           "Cuon len het bien do roi ha xuong co kiem soat, khong giat nguoi.",
           "Doi ben lien tuc nhung van giu nhip deu."
         ]
       },
+      bandHammerCurl: {
+        name: "Resistance Band Hammer Curl",
+        focus: "Tay truoc ngoai + cang tay",
+        photoKey: "bandCurlLoop",
+        equipment: "Band",
+        primaryMuscles: ["Tay truoc"],
+        secondaryMuscles: ["Cang tay"],
+        brief: true,
+        pins: [
+          { label: "Tay truoc", tone: "primary", top: "36%", left: "79%" },
+          { label: "Cang tay", tone: "secondary", top: "41%", left: "58%" }
+        ],
+        cues: [
+          "Giu co tay trung lap, khong xoay co tay len supination.",
+          "Khuyu tay sat than, cuon len cham de giu tension.",
+          "Phan cang tay se vao nhieu hon so voi curl thuong."
+        ]
+      },
       bandSquat: {
         name: "Band Squat",
         focus: "Giu chan khong bi be, van uu tien tong the can doi",
-        media: "assets/exercises/band-squat.gif",
+        photoKey: "bandSquatLoop",
         equipment: "Band",
         primaryMuscles: ["Mong", "Dui truoc"],
         secondaryMuscles: ["Dui sau", "Bap chan"],
-        primaryRegions: ["glutes", "quads"],
-        secondaryRegions: ["hamstrings", "calves"],
+        brief: true,
+        pins: [
+          { label: "Mong", tone: "primary", top: "66%", left: "47%" },
+          { label: "Dui truoc", tone: "primary", top: "80%", left: "49%" },
+          { label: "Dui sau", tone: "secondary", top: "79%", left: "37%" }
+        ],
         cues: [
           "Ngoi xuong bang hong, dau goi di theo huong mui chan.",
           "Dung day qua giua ban chan, dung rut got.",
@@ -892,14 +1560,18 @@
         ]
       },
       splitSquats: {
-        name: "Split Squats",
-        focus: "Chan can doi, them do day dui va on dinh hong",
-        media: "assets/exercises/split-squats.gif",
+        name: "Bulgarian Split Squat",
+        focus: "Chan can doi + mong + core",
+        photoKey: "splitSquatLoop",
         equipment: "Bodyweight",
         primaryMuscles: ["Dui truoc"],
         secondaryMuscles: ["Mong", "Dui sau"],
-        primaryRegions: ["quads"],
-        secondaryRegions: ["glutes", "hamstrings"],
+        brief: true,
+        pins: [
+          { label: "Dui truoc", tone: "primary", top: "68%", left: "54%" },
+          { label: "Mong", tone: "secondary", top: "52%", left: "48%" },
+          { label: "Dui sau", tone: "secondary", top: "74%", left: "28%" }
+        ],
         cues: [
           "Buoc tach chan vua du dai de xuong thang trong tam.",
           "Chan truoc an luc chinh, than nguoi hoi nghieng nhe ve truoc.",
@@ -907,14 +1579,18 @@
         ]
       },
       bandStiffLegDeadlift: {
-        name: "Band Stiff Leg Deadlift",
-        focus: "An vao mat sau dui va mong, bo tro dang nguoi chac hon",
-        media: "assets/exercises/band-stiff-leg-deadlift.gif",
+        name: "Band Romanian Deadlift",
+        focus: "Mat sau dui + mong + lung duoi",
+        photoKey: "bandRdlLoop",
         equipment: "Band",
         primaryMuscles: ["Dui sau"],
         secondaryMuscles: ["Mong", "Lung duoi"],
-        primaryRegions: ["hamstrings"],
-        secondaryRegions: ["glutes", "lowerBack"],
+        brief: true,
+        pins: [
+          { label: "Dui sau", tone: "primary", top: "86%", left: "47%" },
+          { label: "Mong", tone: "secondary", top: "70%", left: "45%" },
+          { label: "Lung duoi", tone: "secondary", top: "53%", left: "53%" }
+        ],
         cues: [
           "Day hong ra sau, ong quyet giu lung trung lap.",
           "Goi mo khoa nhe, khong nhun gap xuong nhu squat.",
@@ -922,14 +1598,17 @@
         ]
       },
       hangingLegRaise: {
-        name: "Hanging Leg Raise",
-        focus: "Core that hon, bung duoi dep hon",
-        media: "assets/exercises/hanging-leg-raise.gif",
+        name: "Hanging Knee Raise",
+        focus: "Core + bung duoi",
+        photoKey: "hangingLegRaiseLoop",
         equipment: "Bodyweight / Xa",
         primaryMuscles: ["Bung"],
         secondaryMuscles: ["Hip flexor"],
-        primaryRegions: ["core"],
-        secondaryRegions: ["hipFlexors"],
+        brief: true,
+        pins: [
+          { label: "Bung", tone: "primary", top: "45%", left: "51%" },
+          { label: "Hip flexor", tone: "secondary", top: "58%", left: "52%" }
+        ],
         cues: [
           "Treo nguoi yen, tranh danh vong truoc khi nang chan.",
           "Cuon xuong chau len mot chut de bung lam viec that.",
@@ -937,29 +1616,36 @@
         ]
       },
       frontPlankWithTwist: {
-        name: "Front Plank With Twist",
-        focus: "Khoa core va oblique cho than tren chac",
-        media: "assets/exercises/front-plank-with-twist.gif",
+        name: "Plank",
+        focus: "Core toan bo + lung duoi",
+        photoKey: "plankTwistLoop",
         equipment: "Bodyweight",
         primaryMuscles: ["Bung"],
-        secondaryMuscles: ["Oblique", "Vai"],
-        primaryRegions: ["core"],
-        secondaryRegions: ["obliques", "shoulders"],
+        secondaryMuscles: ["Vai", "Lung duoi"],
+        brief: true,
+        pins: [
+          { label: "Bung", tone: "primary", top: "51%", left: "55%" },
+          { label: "Vai", tone: "secondary", top: "43%", left: "28%" },
+          { label: "Lung duoi", tone: "secondary", top: "52%", left: "66%" }
+        ],
         cues: [
-          "Plank that chac truoc, mong ngang vai-khong vong lung.",
-          "Xoay hong co kiem soat, bien do vua du khong nem nguoi.",
-          "Tho deu, moi nhip xoay van giu core cang."
+          "Ep bung va mong de than nguoi thanh 1 duong thang.",
+          "Khong de lung duoi sụp xuong hay mong chong qua cao.",
+          "Tho deu va giu tension lien tuc trong toan bo set."
         ]
       },
       bandUnderhandPulldown: {
         name: "Band Underhand Pulldown",
         focus: "Volume bo sung cho xo ma khong phai set xa nao cung fail",
-        media: "assets/exercises/band-underhand-pulldown.gif",
+        photoKey: "bandRowLoop",
         equipment: "Band + neo tren xa",
         primaryMuscles: ["Xo"],
         secondaryMuscles: ["Tay truoc", "Cang tay"],
-        primaryRegions: ["lats"],
-        secondaryRegions: ["biceps", "forearms"],
+        pins: [
+          { label: "Xo", tone: "primary", top: "36%", left: "52%" },
+          { label: "Tay truoc", tone: "secondary", top: "25%", left: "78%" },
+          { label: "Cang tay", tone: "secondary", top: "10%", left: "19%" }
+        ],
         cues: [
           "Neo day cao tren xa, long ban tay ngua, nguc mo.",
           "Keo khuyu tay xuong huong ve hong thay vi chi co gap tay.",
@@ -967,29 +1653,111 @@
         ]
       },
       bandYRaise: {
-        name: "Band Y-Raise",
-        focus: "Mo vai sau, trap duoi va posture than tren",
-        media: "assets/exercises/band-y-raise.gif",
+        name: "Band Pull Apart",
+        focus: "Vai sau + upper back",
+        photoKey: "bandYRaiseLoop",
         equipment: "Band",
-        primaryMuscles: ["Vai"],
+        primaryMuscles: ["Vai sau"],
         secondaryMuscles: ["Trap", "Rhomboid"],
-        primaryRegions: ["shoulders"],
-        secondaryRegions: ["upperBack"],
+        brief: true,
+        pins: [
+          { label: "Vai sau", tone: "primary", top: "31%", left: "78%" },
+          { label: "Trap", tone: "secondary", top: "19%", left: "52%" },
+          { label: "Rhomboid", tone: "secondary", top: "45%", left: "52%" }
+        ],
         cues: [
-          "Nang hai tay theo huong cheo thanh chu Y, khong nhun vai.",
-          "Tap trung keo bai vai xuong va ra sau.",
-          "Chon do cang vua du de form dep hon la gang nang."
+          "Keo band ra hai ben, giu vai sau lam viec chinh.",
+          "Khong he vai len tai, giu co the on dinh.",
+          "Do cang vua du de rep nao cung ro motion."
+        ]
+      },
+      deadHang: {
+        name: "Dead Hang",
+        focus: "Gian cot song + mo vai + grip",
+        photoKey: "deadHangPoster",
+        equipment: "Bodyweight / Xa",
+        primaryMuscles: ["Vai"],
+        secondaryMuscles: ["Cang tay", "Xo"],
+        brief: true,
+        pins: [
+          { label: "Vai", tone: "primary", top: "24%", left: "61%" },
+          { label: "Cang tay", tone: "secondary", top: "31%", left: "77%" },
+          { label: "Xo", tone: "secondary", top: "36%", left: "52%" }
+        ],
+        cues: [
+          "Tha nguoi xuong that den, khong co co.",
+          "Giup than tren mo ra va de grip lam viec.",
+          "Neu can, co the xen vao nhu 1 set phuc hoi cuoi buoi."
+        ]
+      },
+      slowPushUp: {
+        name: "Slow Push Up",
+        focus: "Nguc + vai + tay sau",
+        photoKey: "pushUpLoop",
+        equipment: "Bodyweight",
+        primaryMuscles: ["Nguc"],
+        secondaryMuscles: ["Vai truoc", "Tay sau", "Core"],
+        brief: true,
+        pins: [
+          { label: "Nguc", tone: "primary", top: "39%", left: "34%" },
+          { label: "Vai truoc", tone: "secondary", top: "31%", left: "23%" },
+          { label: "Tay sau", tone: "secondary", top: "50%", left: "48%" }
+        ],
+        cues: [
+          "Xuong cham 3 giay, len co kiem soat 1 nhip.",
+          "Canh tay giu duong di on dinh, khong tha lung.",
+          "Toc do cham se lam day core va nguc ro hon."
+        ]
+      },
+      bodyweightSquat: {
+        name: "Bodyweight Squat",
+        focus: "Dui truoc + mong + core",
+        photoKey: "bodyweightSquatPoster",
+        equipment: "Bodyweight",
+        primaryMuscles: ["Mong", "Dui truoc"],
+        secondaryMuscles: ["Dui sau", "Bap chan"],
+        brief: true,
+        pins: [
+          { label: "Mong", tone: "primary", top: "66%", left: "47%" },
+          { label: "Dui truoc", tone: "primary", top: "80%", left: "49%" },
+          { label: "Dui sau", tone: "secondary", top: "79%", left: "37%" }
+        ],
+        cues: [
+          "Ngoi xuong bang hong, khong do than qua nhieu ve truoc.",
+          "Chan doi sang ngang vai, got chan giu chat tren san.",
+          "Len dung den dinh va siep mong nhe."
+        ]
+      },
+      hollowHold: {
+        name: "Hollow Hold",
+        focus: "Core sau + bung duoi",
+        photoKey: "hollowHoldPoster",
+        equipment: "Bodyweight",
+        primaryMuscles: ["Bung"],
+        secondaryMuscles: ["Lung duoi", "Hip flexor"],
+        brief: true,
+        pins: [
+          { label: "Bung", tone: "primary", top: "51%", left: "55%" },
+          { label: "Lung duoi", tone: "secondary", top: "52%", left: "66%" },
+          { label: "Hip flexor", tone: "secondary", top: "58%", left: "52%" }
+        ],
+        cues: [
+          "Ep lung duoi xuong san, khong de vong qua nhieu.",
+          "Chan va tay keo dai ra ngoai trong kiem soat.",
+          "Giu that chat, dung co giat nhanh."
         ]
       },
       hangingObliqueKneeRaise: {
         name: "Hanging Oblique Knee Raise",
         focus: "Core xoan va eo chac hon",
-        media: "assets/exercises/hanging-oblique-knee-raise.gif",
+        photoKey: "hangingObliqueKneeRaiseLoop",
         equipment: "Bodyweight / Xa",
         primaryMuscles: ["Oblique"],
         secondaryMuscles: ["Bung"],
-        primaryRegions: ["obliques"],
-        secondaryRegions: ["core"],
+        pins: [
+          { label: "Oblique", tone: "primary", top: "46%", left: "40%" },
+          { label: "Bung", tone: "secondary", top: "45%", left: "54%" }
+        ],
         cues: [
           "Treo nguoi on dinh roi keo goi sang cheo mot ben.",
           "Nghi den viec keo xuong chau len chu khong chi nang dui.",
@@ -1002,18 +1770,19 @@
       {
         id: "buoi-1",
         number: "1",
-        title: "Push Build",
-        subtitle: "Nguc + vai + tay sau de than tren day hon",
-        duration: "~28-32 phut",
+        title: "Push Day",
+        subtitle: "Nguc + vai + tay sau cho than tren day hon",
+        duration: "~30-32 phut",
         intensity: "Nghi 45-60s",
-        strategy: "Buoi nay danh vao cac nhom co giup ban trong ngang hon tu vai xuong nguc. Day la buoi nen de body cao gay nhin day va co khung hon.",
+        strategy: "Buoi push chinh dung anatomy/giai phau, uu tien band va bodyweight de vai-nguc-day hon ma khong dung ta.",
         exercises: [
-          { key: "pushUp", prescription: "4 x 8-15", note: "Dung lai khi con 1-2 reps sach." },
-          { key: "bandShoulderPress", prescription: "4 x 10-12", note: "Neu nhe qua thi giam tempo 3 giay luc ha." },
-          { key: "bandFrontLateralRaise", prescription: "3 x 12-15", note: "Tay nhe hon mot chut de cam vao vai ro." },
-          { key: "bandSideTricepsExtension", prescription: "3 x 12-15", note: "Co the superset voi bai truoc de tiet kiem thoi gian." }
+          { key: "bandPushUp", prescription: "4 x 10-15", note: "Giu core cang va xuong cham." },
+          { key: "pikePushUp", prescription: "4 x 8-12", note: "Day hong cao, ap luc vao vai truoc." },
+          { key: "bandLateralRaise", prescription: "5 x 15", note: "Nang den ngang vai." },
+          { key: "bandFrontRaise", prescription: "3 x 12", note: "Khong rut co, giu than on dinh." },
+          { key: "overheadBandTricepExtension", prescription: "4 x 12-15", note: "Co dinh khuyu tay o tren dau." }
         ],
-        foot: "Meo tiet kiem thoi gian: sau set 1-2 cua shoulder press, ghep luon 1 set raise + 1 set triceps extension. Vua nhanh vua len pump rat ro o vai."
+        foot: "Neu buoi nay con du thoi gian, them 1 set lateral raise. Buoi push nay can form dep va do cang vua du hon la cu nay nhe."
       },
       {
         id: "buoi-2",
@@ -1022,55 +1791,110 @@
         subtitle: "Xo + lung giua + tay truoc cho V-taper ro hon",
         duration: "~30 phut",
         intensity: "Xa nghi 60-75s",
-        strategy: "Neu muc tieu la trong do, lung va xo la nhom co khong duoc bo. Buoi nay dung pull-up/chin-up lam cot song, band row va reverse fly lam phan day them vao lung tren.",
+        strategy: "Buoi nay dung pull-up/chin-up lam cot song, band row va face pull lam day lung tren, tay truoc chi la phan phu.",
         exercises: [
-          { key: "pullUp", prescription: "4 x 4-8", note: "Neu tap duoc hon 8 rep dep, tang tempo pha xuong." },
-          { key: "chinUp", prescription: "3 x 4-8", note: "Khong can set nao cung fail." },
-          { key: "bandLowRow", prescription: "3 x 12-15 / ben", note: "Moi ben tap sach de can doi lung." },
-          { key: "bandReverseFly", prescription: "3 x 15-20", note: "Bai posture rat dang giu." },
-          { key: "bandBicepsCurl", prescription: "2 x 12-15 / ben", note: "Ket buoi de tay truoc van co volume." }
+          { key: "pullUp", prescription: "5 x toi da", note: "Neu rep tot, giu tempo xuong cham." },
+          { key: "chinUp", prescription: "4 x toi da", note: "Khong can set nao cung fail." },
+          { key: "bandLowRow", prescription: "4 x 12-15", note: "Moi ben tap sach de can doi lung." },
+          { key: "bandReverseFly", prescription: "4 x 15", note: "Bai posture rat dang giu." },
+          { key: "bandBicepsCurl", prescription: "4 x 12-15", note: "Ket buoi de tay truoc van co volume." },
+          { key: "bandHammerCurl", prescription: "3 x 12", note: "Co the thay cho 1 set curl thuong." }
         ],
-        foot: "Neu hom nao luc xa xuong, giu du 2 bai pull-up + chin-up roi doi band low row len 4 set. Uu tien tong volume lung, khong can co chap so rep tung bai."
+        foot: "Khi luc xa xuong, giu du pull-up, chin-up va row truoc. Tay truoc chi can du volume, khong can vao qua nhieu set fail."
       },
       {
         id: "buoi-3",
         number: "3",
         title: "Legs + Core",
-        subtitle: "Chan khong bi bo quen, core giup dang dep va tap xa chac hon",
+        subtitle: "Chan khong bi bo quen, core giup dang dep va tap chac hon",
         duration: "~29-32 phut",
         intensity: "Nghi 45-60s",
-        strategy: "Chan van can volume de co the can doi, nhat la voi dang nguoi cao gay. Buoi nay tap ngan gon nhung du ca dui truoc, mat sau dui, mong va core.",
+        strategy: "Chan can volume de co the can doi, nhat la voi dang nguoi cao gay. Buoi nay ngan gon nhung du ca dui truoc, mat sau dui, mong va core.",
         exercises: [
-          { key: "bandSquat", prescription: "4 x 12-20", note: "Rep cao de van du kich thich voi band." },
-          { key: "splitSquats", prescription: "3 x 8-12 / chan", note: "Moi chan tap lien 1 set cho de giu form." },
-          { key: "bandStiffLegDeadlift", prescription: "4 x 12-15", note: "An rat ro vao mat sau dui neu di dung form." },
-          { key: "hangingLegRaise", prescription: "3 x 8-12", note: "Khong danh vong de gian rep." },
-          { key: "frontPlankWithTwist", prescription: "2 x 30-40 giay", note: "Co the dung lam finisher." }
+          { key: "bandSquat", prescription: "5 x 12-15", note: "Rep cao de van du kich thich voi band." },
+          { key: "splitSquats", prescription: "4 x 10 / chan", note: "Moi chan tap lien 1 set cho de giu form." },
+          { key: "bandStiffLegDeadlift", prescription: "4 x 12", note: "An ro vao mat sau dui neu di dung form." },
+          { key: "hangingLegRaise", prescription: "4 x 12-15", note: "Khong danh vong de gian rep." },
+          { key: "frontPlankWithTwist", prescription: "3 x 45-60 giay", note: "Co the dung lam finisher." }
         ],
-        foot: "Neu buoi nay bi qua 30 phut, cat bot 1 set plank truoc. Khong cat squat va split squat, vi do la 2 bai giu chan khong nho di."
+        foot: "Neu buoi nay bi qua 30 phut, cat bot 1 set plank. Khong cat squat va split squat, vi do la 2 bai giu chan khong nho di."
       },
       {
         id: "buoi-4",
         number: "4",
-        title: "V-Taper + Posture",
-        subtitle: "Them do mo vai-lung, giu dang dep va than tren trong hon",
+        title: "V-Taper Day",
+        subtitle: "Mo vai-lung, giu than tren trong va rong hon",
         duration: "~28-30 phut",
         intensity: "Nghi 45-60s",
-        strategy: "Buoi nay la buoi nhan manh visual: xo, vai sau, nguc mo va eo chac. Rat hop khi ban muon body nhin rong hon du da bo lo mot vai buoi trong tuan.",
+        strategy: "Buoi nay la buoi nhan manh visual: xo, vai sau, vai ngang va nguc mo. Rat hop khi ban muon body nhin rong hon.",
         exercises: [
           { key: "pullUp", prescription: "3 x 4-8", note: "Keo sach, khong can qua nhieu set." },
-          { key: "bandUnderhandPulldown", prescription: "3 x 12-15", note: "Bo sung volume cho xo ma van nhe khop." },
-          { key: "wideHandPushUp", prescription: "3 x 10-15", note: "Day nguc mo ra de phom than tren dep hon." },
-          { key: "bandYRaise", prescription: "3 x 15-20", note: "Bai posture nen tap that sach." },
-          { key: "hangingObliqueKneeRaise", prescription: "2-3 x 10-12 / ben", note: "Tap cham, khong day dua nguoi." }
+          { key: "chinUp", prescription: "3 x 4-8", note: "Neu set nao cung fail se qua met." },
+          { key: "bandLateralRaise", prescription: "5 x 15", note: "Bai chinh de mo vai ngang." },
+          { key: "bandReverseFly", prescription: "4 x 15", note: "Giup posture va upper back ro hon." },
+          { key: "pushUp", prescription: "4 x 10-15", note: "Giup nguc mo ra va than tren can bang hon." },
+          { key: "bandBicepsCurl", prescription: "4 x 12-15", note: "Cuoi buoi de giu tay truoc co volume." }
         ],
-        foot: "Buoi 4 la buoi rat hop de quay lai sau nhung ngay ban, vi no van giu du do rong vai-lung ma khong dot mat suc phuc hoi cua chan."
+        foot: "Buoi 4 rat hop de quay lai sau ngay ban, vi no giu du do rong vai-lung ma khong dot mat suc phuc hoi cua chan."
+      },
+      {
+        id: "buoi-5",
+        number: "5",
+        title: "Posture + Full Body",
+        subtitle: "Giu dang dep, giam co cung lung va mo than tren",
+        duration: "~28-30 phut",
+        intensity: "Nghi 45-60s",
+        strategy: "Buoi nay la buoi de reset posture: treo nguoi, mo vai, day nhanh ca the va core can lai than tren.",
+        exercises: [
+          { key: "deadHang", prescription: "3 x 45-60 giay", note: "Tha nguoi va giu vai mo." },
+          { key: "bandYRaise", prescription: "5 x 20", note: "Keo ra hai ben de vai sau sang hon." },
+          { key: "slowPushUp", prescription: "4 x 12", note: "Xuong cham, len co kiem soat." },
+          { key: "bodyweightSquat", prescription: "4 x 20", note: "Giup chan van co volume va nhiet tap." },
+          { key: "hollowHold", prescription: "4 x 30-45 giay", note: "Ep lung duoi xuong san." }
+        ],
+        foot: "Buoi cuoi nay hop de lam ngay phuc hoi tich cuc: nhiet tap co, vai mo, chan van dong va core bat lai.",
       }
     ];
 
-    function muscleMap(primaryRegions, secondaryRegions) {
-      const primary = new Set(primaryRegions);
-      const secondary = new Set(secondaryRegions);
+    const muscleRegionLookup = {
+      "Nguc": ["chest"],
+      "Vai": ["shoulders"],
+      "Vai truoc": ["shoulders"],
+      "Vai sau": ["shoulders"],
+      "Tay sau": ["triceps"],
+      "Tay truoc": ["biceps"],
+      "Cang tay": ["forearms"],
+      "Xo": ["lats"],
+      "Lung giua": ["upperBack"],
+      "Lung tren": ["upperBack"],
+      "Trap": ["upperBack"],
+      "Rhomboid": ["upperBack"],
+      "Mong": ["glutes"],
+      "Dui truoc": ["quads"],
+      "Dui sau": ["hamstrings"],
+      "Bap chan": ["calves"],
+      "Bung": ["core"],
+      "Oblique": ["obliques"],
+      "Hip flexor": ["hipFlexors"],
+      "Lung duoi": ["lowerBack"]
+    };
+
+    function regionsFromMuscles(labels) {
+      return [...new Set(labels.flatMap((label) => muscleRegionLookup[label] || []))];
+    }
+
+    function renderPins(pins) {
+      return pins.map((pin) => `
+        <span
+          class="muscle-pin ${pin.tone}"
+          style="top:${pin.top}; left:${pin.left};"
+        >${pin.label}</span>
+      `).join("");
+    }
+
+    function muscleMap(primaryMuscles, secondaryMuscles) {
+      const primary = new Set(regionsFromMuscles(primaryMuscles));
+      const secondary = new Set(regionsFromMuscles(secondaryMuscles));
       const regionClass = (region) => {
         if (primary.has(region)) return "var(--primary)";
         if (secondary.has(region)) return "var(--secondary)";
@@ -1078,71 +1902,171 @@
       };
 
       return `
-        <svg class="muscle-svg" viewBox="0 0 230 260" role="img" aria-label="Mo phong nhom co tac dong">
-          <defs>
-            <style>
-              .outline { fill: rgba(19, 35, 41, 0.06); stroke: rgba(19, 35, 41, 0.16); stroke-width: 2; }
-              .label { fill: rgba(19, 35, 41, 0.55); font: 600 10px 'Be Vietnam Pro', sans-serif; letter-spacing: .05em; }
-            </style>
-          </defs>
+        <div class="muscle-figure">
+          <svg class="muscle-svg" viewBox="0 0 230 260" role="img" aria-label="So do nhom co tac dong">
+            <defs>
+              <style>
+                .outline { fill: rgba(19, 35, 41, 0.06); stroke: rgba(19, 35, 41, 0.16); stroke-width: 2; }
+                .label { fill: rgba(19, 35, 41, 0.55); font: 600 10px 'Be Vietnam Pro', sans-serif; letter-spacing: .05em; }
+              </style>
+            </defs>
 
-          <text x="42" y="18" class="label">FRONT</text>
-          <text x="146" y="18" class="label">BACK</text>
+            <text x="42" y="18" class="label">FRONT</text>
+            <text x="146" y="18" class="label">BACK</text>
 
-          <circle cx="55" cy="34" r="16" class="outline"></circle>
-          <rect x="36" y="52" width="38" height="74" rx="18" class="outline"></rect>
-          <rect x="20" y="58" width="16" height="46" rx="8" class="outline"></rect>
-          <rect x="74" y="58" width="16" height="46" rx="8" class="outline"></rect>
-          <rect x="40" y="126" width="14" height="72" rx="7" class="outline"></rect>
-          <rect x="56" y="126" width="14" height="72" rx="7" class="outline"></rect>
+            <circle cx="55" cy="34" r="16" class="outline"></circle>
+            <rect x="36" y="52" width="38" height="74" rx="18" class="outline"></rect>
+            <rect x="20" y="58" width="16" height="46" rx="8" class="outline"></rect>
+            <rect x="74" y="58" width="16" height="46" rx="8" class="outline"></rect>
+            <rect x="40" y="126" width="14" height="72" rx="7" class="outline"></rect>
+            <rect x="56" y="126" width="14" height="72" rx="7" class="outline"></rect>
 
-          <circle cx="175" cy="34" r="16" class="outline"></circle>
-          <rect x="156" y="52" width="38" height="74" rx="18" class="outline"></rect>
-          <rect x="140" y="58" width="16" height="46" rx="8" class="outline"></rect>
-          <rect x="194" y="58" width="16" height="46" rx="8" class="outline"></rect>
-          <rect x="160" y="126" width="14" height="72" rx="7" class="outline"></rect>
-          <rect x="176" y="126" width="14" height="72" rx="7" class="outline"></rect>
+            <circle cx="175" cy="34" r="16" class="outline"></circle>
+            <rect x="156" y="52" width="38" height="74" rx="18" class="outline"></rect>
+            <rect x="140" y="58" width="16" height="46" rx="8" class="outline"></rect>
+            <rect x="194" y="58" width="16" height="46" rx="8" class="outline"></rect>
+            <rect x="160" y="126" width="14" height="72" rx="7" class="outline"></rect>
+            <rect x="176" y="126" width="14" height="72" rx="7" class="outline"></rect>
 
-          <ellipse cx="46" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
-          <ellipse cx="64" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
-          <ellipse cx="45" cy="78" rx="13" ry="11" fill="${regionClass("chest")}"></ellipse>
-          <ellipse cx="65" cy="78" rx="13" ry="11" fill="${regionClass("chest")}"></ellipse>
-          <rect x="24" y="74" width="10" height="28" rx="5" fill="${regionClass("biceps")}"></rect>
-          <rect x="76" y="74" width="10" height="28" rx="5" fill="${regionClass("biceps")}"></rect>
-          <rect x="45" y="96" width="20" height="26" rx="8" fill="${regionClass("core")}"></rect>
-          <path d="M36 99 L45 99 L41 121 L33 121 Z" fill="${regionClass("obliques")}"></path>
-          <path d="M74 99 L65 99 L69 121 L77 121 Z" fill="${regionClass("obliques")}"></path>
-          <rect x="42" y="128" width="12" height="58" rx="6" fill="${regionClass("quads")}"></rect>
-          <rect x="56" y="128" width="12" height="58" rx="6" fill="${regionClass("quads")}"></rect>
-          <rect x="43" y="187" width="10" height="22" rx="5" fill="${regionClass("calves")}"></rect>
-          <rect x="57" y="187" width="10" height="22" rx="5" fill="${regionClass("calves")}"></rect>
+            <ellipse cx="46" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
+            <ellipse cx="64" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
+            <ellipse cx="45" cy="78" rx="13" ry="11" fill="${regionClass("chest")}"></ellipse>
+            <ellipse cx="65" cy="78" rx="13" ry="11" fill="${regionClass("chest")}"></ellipse>
+            <rect x="24" y="74" width="10" height="28" rx="5" fill="${regionClass("biceps")}"></rect>
+            <rect x="76" y="74" width="10" height="28" rx="5" fill="${regionClass("biceps")}"></rect>
+            <rect x="45" y="96" width="20" height="26" rx="8" fill="${regionClass("core")}"></rect>
+            <path d="M36 99 L45 99 L41 121 L33 121 Z" fill="${regionClass("obliques")}"></path>
+            <path d="M74 99 L65 99 L69 121 L77 121 Z" fill="${regionClass("obliques")}"></path>
+            <rect x="42" y="128" width="12" height="58" rx="6" fill="${regionClass("quads")}"></rect>
+            <rect x="56" y="128" width="12" height="58" rx="6" fill="${regionClass("quads")}"></rect>
+            <rect x="43" y="187" width="10" height="22" rx="5" fill="${regionClass("calves")}"></rect>
+            <rect x="57" y="187" width="10" height="22" rx="5" fill="${regionClass("calves")}"></rect>
 
-          <ellipse cx="166" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
-          <ellipse cx="184" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
-          <path d="M156 72 L168 72 L175 112 L162 112 Z" fill="${regionClass("lats")}"></path>
-          <path d="M194 72 L182 72 L175 112 L188 112 Z" fill="${regionClass("lats")}"></path>
-          <rect x="144" y="74" width="10" height="28" rx="5" fill="${regionClass("triceps")}"></rect>
-          <rect x="196" y="74" width="10" height="28" rx="5" fill="${regionClass("triceps")}"></rect>
-          <path d="M162 66 Q175 55 188 66 L184 92 Q175 101 166 92 Z" fill="${regionClass("upperBack")}"></path>
-          <rect x="170" y="101" width="10" height="16" rx="5" fill="${regionClass("lowerBack")}"></rect>
-          <ellipse cx="168" cy="128" rx="9" ry="12" fill="${regionClass("glutes")}"></ellipse>
-          <ellipse cx="182" cy="128" rx="9" ry="12" fill="${regionClass("glutes")}"></ellipse>
-          <rect x="162" y="140" width="10" height="48" rx="5" fill="${regionClass("hamstrings")}"></rect>
-          <rect x="178" y="140" width="10" height="48" rx="5" fill="${regionClass("hamstrings")}"></rect>
-          <rect x="163" y="188" width="8" height="21" rx="4" fill="${regionClass("calves")}"></rect>
-          <rect x="179" y="188" width="8" height="21" rx="4" fill="${regionClass("calves")}"></rect>
-        </svg>
+            <ellipse cx="166" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
+            <ellipse cx="184" cy="64" rx="12" ry="8" fill="${regionClass("shoulders")}"></ellipse>
+            <path d="M156 72 L168 72 L175 112 L162 112 Z" fill="${regionClass("lats")}"></path>
+            <path d="M194 72 L182 72 L175 112 L188 112 Z" fill="${regionClass("lats")}"></path>
+            <rect x="144" y="74" width="10" height="28" rx="5" fill="${regionClass("triceps")}"></rect>
+            <rect x="196" y="74" width="10" height="28" rx="5" fill="${regionClass("triceps")}"></rect>
+            <path d="M162 66 Q175 55 188 66 L184 92 Q175 101 166 92 Z" fill="${regionClass("upperBack")}"></path>
+            <rect x="170" y="101" width="10" height="16" rx="5" fill="${regionClass("lowerBack")}"></rect>
+            <ellipse cx="168" cy="128" rx="9" ry="12" fill="${regionClass("glutes")}"></ellipse>
+            <ellipse cx="182" cy="128" rx="9" ry="12" fill="${regionClass("glutes")}"></ellipse>
+            <rect x="162" y="140" width="10" height="48" rx="5" fill="${regionClass("hamstrings")}"></rect>
+            <rect x="178" y="140" width="10" height="48" rx="5" fill="${regionClass("hamstrings")}"></rect>
+            <rect x="163" y="188" width="8" height="21" rx="4" fill="${regionClass("calves")}"></rect>
+            <rect x="179" y="188" width="8" height="21" rx="4" fill="${regionClass("calves")}"></rect>
+          </svg>
+        </div>
       `;
     }
 
-    function renderExerciseCard(item, order) {
-      const exercise = exerciseLibrary[item.key];
+    function renderMediaHeader(exercise, photo) {
+      const mediaLabel = photo.variant === "poster"
+        ? "Poster anatomy"
+        : photo.variant === "anatomy"
+          ? "2 pha anatomy"
+          : "Anatomy loop";
+
       return `
-        <article class="exercise-card" style="animation-delay:${order * 65}ms">
-          <div class="exercise-media">
-            <img src="${exercise.media}" alt="${exercise.name}" loading="lazy">
+        <div class="exercise-media-header">
+          <div class="media-kicker">
+            <strong>${mediaLabel}</strong>
+            <span>${exercise.focus}</span>
           </div>
-          <div class="exercise-body">
+          <div class="media-summary">
+            <strong>Nhom co tac dong</strong>
+            <div class="media-summary-line">Chinh: ${exercise.primaryMuscles.join(", ")}</div>
+            <div class="media-summary-line">Ho tro: ${exercise.secondaryMuscles.join(", ")}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderExerciseMedia(photo, exercise) {
+      const creditMarkup = photo.credit
+        ? `<div class="media-credit"><span>${photo.credit}</span>${photo.source ? `<a href="${photo.source}" target="_blank" rel="noreferrer">Xem nguon</a>` : ""}</div>`
+        : "";
+      const noteMarkup = photo.note ? `<div class="media-note">${photo.note}</div>` : "";
+
+      if (photo.variant === "poster") {
+        return `
+          <div class="exercise-media is-anatomy is-poster">
+            ${renderMediaHeader(exercise, photo)}
+            <div class="poster-body">
+              <div class="poster-copy">
+                <h5>${exercise.name}</h5>
+                <p>${exercise.focus}</p>
+                <div class="focus-chip-row">
+                  ${exercise.primaryMuscles.map((muscle) => `<span class="focus-chip primary">${muscle}</span>`).join("")}
+                  ${exercise.secondaryMuscles.map((muscle) => `<span class="focus-chip secondary">${muscle}</span>`).join("")}
+                </div>
+                <div class="poster-note">${photo.note || "Anatomy poster."}</div>
+              </div>
+              ${muscleMap(exercise.primaryMuscles, exercise.secondaryMuscles)}
+            </div>
+            ${creditMarkup}
+          </div>
+        `;
+      }
+
+      if (photo.variant === "anatomy-single" && photo.src) {
+        return `
+          <div class="exercise-media is-anatomy anatomy-single">
+            ${renderMediaHeader(exercise, photo)}
+            <img src="${photo.src}" alt="${exercise.name}" loading="lazy">
+            ${noteMarkup}
+            ${creditMarkup}
+          </div>
+        `;
+      }
+
+      if (photo.variant === "anatomy" && photo.frames?.length) {
+        return `
+          <div class="exercise-media is-anatomy">
+            ${renderMediaHeader(exercise, photo)}
+            <div class="anatomy-frame-grid">
+              ${photo.frames.map((frame) => `
+                <figure class="anatomy-frame">
+                  <img
+                    src="${frame.src}"
+                    alt="${exercise.name} - ${frame.label}"
+                    loading="lazy"
+                    style="--frame-position:${frame.position || "center center"};"
+                  >
+                  <figcaption>${frame.label}</figcaption>
+                </figure>
+              `).join("")}
+            </div>
+            ${noteMarkup}
+            ${creditMarkup}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="exercise-media" style="--photo-position:${photo.position || "center center"};">
+          <img src="${photo.src}" alt="${exercise.name}" loading="lazy">
+          <div class="pin-layer">
+            ${renderPins(exercise.pins)}
+          </div>
+          ${noteMarkup}
+          <div class="media-credit">
+            <span>Marker tren anh: co chinh/phu</span>
+            ${photo.source ? `<a href="${photo.source}" target="_blank" rel="noreferrer">Anh goc</a>` : ""}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderExerciseCard(item) {
+      const exercise = exerciseLibrary[item.key];
+      const photo = photoLibrary[exercise.photoKey];
+      const brief = Boolean(exercise.brief);
+      return `
+        <article class="exercise-card">
+          ${renderExerciseMedia(photo, exercise)}
+          <div class="exercise-body${brief ? " brief" : ""}">
             <div class="exercise-top">
               <div>
                 <h4 class="exercise-title">${exercise.name}</h4>
@@ -1157,21 +2081,41 @@
               <span class="tag">Phu: ${exercise.secondaryMuscles.join(" + ")}</span>
             </div>
 
-            <div class="map-box">
-              <div>
+            ${brief ? `
+              <div class="map-box">
                 <div class="map-note"><strong>Co an vao:</strong> ${exercise.primaryMuscles.join(", ")}.</div>
                 <div class="map-note muted">Co ho tro: ${exercise.secondaryMuscles.join(", ")}.</div>
-                <div class="map-note" style="margin-top:8px;"><strong>Note:</strong> ${item.note}</div>
+                <div class="map-visuals">
+                  <div class="focus-chip-row">
+                    ${exercise.primaryMuscles.map((muscle) => `<span class="focus-chip primary">${muscle}</span>`).join("")}
+                    ${exercise.secondaryMuscles.map((muscle) => `<span class="focus-chip secondary">${muscle}</span>`).join("")}
+                  </div>
+                </div>
               </div>
-              ${muscleMap(exercise.primaryRegions, exercise.secondaryRegions)}
-            </div>
+            ` : `
+              <div class="map-box">
+                <div>
+                  <div class="map-note"><strong>Co an vao:</strong> ${exercise.primaryMuscles.join(", ")}.</div>
+                  <div class="map-note muted">Co ho tro: ${exercise.secondaryMuscles.join(", ")}.</div>
+                  <div class="map-note" style="margin-top:8px;"><strong>Note:</strong> ${item.note}</div>
+                </div>
+                <div class="map-visuals">
+                  <div class="focus-chip-row">
+                    ${exercise.primaryMuscles.map((muscle) => `<span class="focus-chip primary">${muscle}</span>`).join("")}
+                    ${exercise.secondaryMuscles.map((muscle) => `<span class="focus-chip secondary">${muscle}</span>`).join("")}
+                  </div>
+                </div>
+              </div>
+            `}
 
+            ${brief ? "" : `
             <div>
               <div class="map-note"><strong>Cue nhanh:</strong></div>
               <ul class="cue-list">
                 ${exercise.cues.map(cue => `<li>${cue}</li>`).join("")}
               </ul>
             </div>
+            `}
           </div>
         </article>
       `;
@@ -1194,7 +2138,7 @@
           </div>
 
           <div class="exercise-grid">
-            ${session.exercises.map((item, index) => renderExerciseCard(item, index)).join("")}
+            ${session.exercises.map((item) => renderExerciseCard(item)).join("")}
           </div>
 
           <div class="session-foot">${session.foot}</div>
