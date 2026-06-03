@@ -1211,6 +1211,12 @@
       note,
       credit
     });
+    const anatomyGallery = (slides, credit = "Gallery anatomy local", note = "") => ({
+      variant: "gallery",
+      slides,
+      credit,
+      note
+    });
 
     const photoLibrary = {
       pushUpLoop: anatomyLoop("push-up.gif"),
@@ -1218,7 +1224,23 @@
         anatomyFrame("push-up-top.png", "Pha day manh"),
         anatomyFrame("push-up-bottom.png", "Pha ha xuong")
       ], "Frame anatomy local", "Ban co the dat day qua lung de bien the thanh band push-up."),
-      pikePushUpPoster: anatomyPoster("Chua co asset local dung chuan cho pike push-up. Tam thoi uu tien poster anatomy de giu style sach va dung nhom co."),
+      pikePushUpGallery: anatomyGallery([
+        {
+          src: localFile("photos/pike-push-up-anatomy.png"),
+          label: "Giai phau vai",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/pike-push-up-start.png"),
+          label: "Pha bat dau",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/pike-push-up-bottom.png"),
+          label: "Pha ha dau",
+          credit: "AI anatomy asset"
+        }
+      ], "Gallery anatomy local", "Nhieu hinh minh hoa cho Pike Push Up: ban do giai phau, pha bat dau va pha ha dau."),
       bandFrontLateralRaiseLoop: anatomyLoop("band-front-lateral-raise.gif"),
       bandShoulderPressLoop: anatomyLoop("band-shoulder-press.gif"),
       bandTricepsLoop: anatomyLoop("band-side-triceps-extension.gif"),
@@ -1281,10 +1303,10 @@
       },
       pikePushUp: {
         name: "Pike Push Up",
-        focus: "Vai giua + vai truoc + nguc tren",
-        photoKey: "pikePushUpPoster",
+        focus: "Vai giua + vai truoc",
+        photoKey: "pikePushUpGallery",
         equipment: "Bodyweight",
-        primaryMuscles: ["Vai"],
+        primaryMuscles: ["Vai giua", "Vai truoc"],
         secondaryMuscles: ["Nguc", "Tay sau", "Core"],
         brief: true,
         pins: [
@@ -1859,6 +1881,7 @@
     const muscleRegionLookup = {
       "Nguc": ["chest"],
       "Vai": ["shoulders"],
+      "Vai giua": ["shoulders"],
       "Vai truoc": ["shoulders"],
       "Vai sau": ["shoulders"],
       "Tay sau": ["triceps"],
@@ -1874,6 +1897,7 @@
       "Dui sau": ["hamstrings"],
       "Bap chan": ["calves"],
       "Bung": ["core"],
+      "Core": ["core"],
       "Oblique": ["obliques"],
       "Hip flexor": ["hipFlexors"],
       "Lung duoi": ["lowerBack"]
@@ -1966,7 +1990,9 @@
         ? "Poster anatomy"
         : photo.variant === "anatomy"
           ? "2 pha anatomy"
-          : "Anatomy loop";
+          : photo.variant === "gallery"
+            ? "Gallery anatomy"
+            : "Anatomy loop";
 
       return `
         <div class="exercise-media-header">
@@ -2005,6 +2031,29 @@
               </div>
               ${muscleMap(exercise.primaryMuscles, exercise.secondaryMuscles)}
             </div>
+            ${creditMarkup}
+          </div>
+        `;
+      }
+
+      if (photo.variant === "gallery" && photo.slides?.length) {
+        return `
+          <div class="exercise-media is-anatomy is-gallery">
+            ${renderMediaHeader(exercise, photo)}
+            <div class="gallery-track" aria-label="${exercise.name} anatomy gallery">
+              ${photo.slides.map((slide) => `
+                <figure class="gallery-slide">
+                  <img
+                    src="${slide.src}"
+                    alt="${exercise.name} - ${slide.label}"
+                    loading="lazy"
+                  >
+                  <figcaption>${slide.label}</figcaption>
+                  ${slide.credit ? `<div class="slide-credit">${slide.credit}</div>` : ""}
+                </figure>
+              `).join("")}
+            </div>
+            ${noteMarkup}
             ${creditMarkup}
           </div>
         `;
