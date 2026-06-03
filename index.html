@@ -1220,10 +1220,49 @@
 
     const photoLibrary = {
       pushUpLoop: anatomyLoop("push-up.gif"),
+      pushUpChestGallery: anatomyGallery([
+        {
+          src: localFile("photos/banded-chest-fly-anatomy.png"),
+          label: "Giai phau nguc tac dong",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("exercises/push-up.gif"),
+          label: "Loop dong tac",
+          credit: "Loop anatomy local"
+        },
+        {
+          src: localFile("photos/push-up-top.png"),
+          label: "Pha day len",
+          credit: "Frame anatomy local"
+        },
+        {
+          src: localFile("photos/push-up-bottom.png"),
+          label: "Pha ha nguc",
+          credit: "Frame anatomy local"
+        }
+      ], "Gallery anatomy local", "Bai nguc hien nhieu hinh: ban do co tac dong, loop dong tac, pha tren va pha duoi. Mau do/cam la nguc chinh; mau xanh la vai truoc va tay sau ho tro."),
       bandPushUpFallback: anatomyFrames([
         anatomyFrame("push-up-top.png", "Pha day manh"),
         anatomyFrame("push-up-bottom.png", "Pha ha xuong")
       ], "Frame anatomy local", "Ban co the dat day qua lung de bien the thanh band push-up."),
+      bandPushUpChestGallery: anatomyGallery([
+        {
+          src: localFile("photos/banded-chest-fly-anatomy.png"),
+          label: "Giai phau nguc tac dong",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/push-up-top.png"),
+          label: "Pha day manh",
+          credit: "Frame anatomy local"
+        },
+        {
+          src: localFile("photos/push-up-bottom.png"),
+          label: "Pha ha nguc",
+          credit: "Frame anatomy local"
+        }
+      ], "Gallery anatomy local", "Band Push Up dung gallery anatomy nhieu pha. Dat day khang luc qua lung; ban do co cho thay nguc la co chinh, vai truoc/tay sau/core la co ho tro."),
       pikePushUpGallery: anatomyGallery([
         {
           src: localFile("photos/pike-push-up-anatomy.png"),
@@ -1244,7 +1283,75 @@
       bandFrontLateralRaiseLoop: anatomyLoop("band-front-lateral-raise.gif"),
       bandShoulderPressLoop: anatomyLoop("band-shoulder-press.gif"),
       bandTricepsLoop: anatomyLoop("band-side-triceps-extension.gif"),
+      bandedChestFlyGallery: anatomyGallery([
+        {
+          src: localFile("photos/banded-chest-fly-anatomy.png"),
+          label: "Giai phau co tac dong",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/banded-chest-fly-open.png"),
+          label: "Pha mo nguc",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/banded-chest-fly-closed.png"),
+          label: "Pha kep nguc",
+          credit: "AI anatomy asset"
+        }
+      ], "Gallery anatomy local", "Banded Chest Fly dung 3 anh anatomy bitmap: ban do co, pha mo va pha kep nguc. Mau do/cam la nguc chinh; mau xanh la vai truoc va tay sau ho tro."),
+      bandFacePullGallery: anatomyGallery([
+        {
+          src: localFile("photos/band-face-pull-anatomy.png"),
+          label: "Giai phau co tac dong",
+          credit: "AI anatomy asset, cue tham khao NASM"
+        },
+        {
+          src: localFile("photos/band-face-pull-start.png"),
+          label: "Pha bat dau: tay thang ngang mat",
+          credit: "AI photo asset"
+        },
+        {
+          src: localFile("photos/band-face-pull-finish.png"),
+          label: "Pha ket thuc: keo ve mat",
+          credit: "AI photo asset"
+        }
+      ], "Gallery anatomy local", "Band Face Pull dung 3 anh: ban do giai phau, pha bat dau va pha ket thuc. Mau do/cam nhan vao vai sau, trap giua/duoi va rotator cuff; band neo ngang mat de giu duong keo dung."),
+      bandTricepPushdownGallery: anatomyGallery([
+        {
+          src: localFile("photos/band-tricep-pushdown-anatomy.png"),
+          label: "Giai phau co tac dong",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/band-tricep-pushdown-start.png"),
+          label: "Pha bat dau",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("photos/band-tricep-pushdown-finish.png"),
+          label: "Pha duoi xuong",
+          credit: "AI anatomy asset"
+        }
+      ], "Gallery anatomy local", "Band Tricep Pushdown da thay poster fallback bang 3 anh anatomy rieng: ban do co, pha bat dau va pha duoi xuong. Mau do/cam la tay sau chinh; mau xanh la vai/core ho tro."),
       wideHandPushUpLoop: anatomyLoop("wide-hand-push-up.gif"),
+      wideHandPushUpGallery: anatomyGallery([
+        {
+          src: localFile("photos/banded-chest-fly-anatomy.png"),
+          label: "Giai phau nguc tac dong",
+          credit: "AI anatomy asset"
+        },
+        {
+          src: localFile("exercises/wide-hand-push-up.gif"),
+          label: "Loop tay rong",
+          credit: "Loop anatomy local"
+        },
+        {
+          src: localFile("photos/push-up-bottom.png"),
+          label: "Pha ha nguc",
+          credit: "Frame anatomy local"
+        }
+      ], "Gallery anatomy local", "Wide Hand Push Up co them ban do giai phau va loop tay rong de thay nguc la co chinh, vai truoc va tay sau ho tro."),
       pullUpLoop: anatomyLoop("pull-up.gif"),
       chinUpLoop: anatomyLoop("chin-up.gif"),
       bandRowLoop: anatomyLoop("band-one-arm-standing-low-row.gif"),
@@ -1266,7 +1373,7 @@
       pushUp: {
         name: "Push-up",
         focus: "Nguc + vai truoc + tay sau",
-        photoKey: "pushUpLoop",
+        photoKey: "pushUpChestGallery",
         equipment: "Bodyweight",
         primaryMuscles: ["Nguc"],
         secondaryMuscles: ["Vai truoc", "Tay sau", "Core"],
@@ -1285,7 +1392,7 @@
       bandPushUp: {
         name: "Band Push Up",
         focus: "Nguc giua + vai truoc + tay sau",
-        photoKey: "bandPushUpFallback",
+        photoKey: "bandPushUpChestGallery",
         equipment: "Band",
         primaryMuscles: ["Nguc"],
         secondaryMuscles: ["Vai truoc", "Tay sau", "Core"],
@@ -1302,11 +1409,11 @@
         ]
       },
       pikePushUp: {
-        name: "Pike Push Up",
-        focus: "Vai giua + vai truoc",
+        name: "Pike Push-up",
+        focus: "Vai truoc, thay cho front raise",
         photoKey: "pikePushUpGallery",
         equipment: "Bodyweight",
-        primaryMuscles: ["Vai giua", "Vai truoc"],
+        primaryMuscles: ["Vai truoc"],
         secondaryMuscles: ["Nguc", "Tay sau", "Core"],
         brief: true,
         pins: [
@@ -1322,10 +1429,10 @@
       },
       bandLateralRaise: {
         name: "Band Lateral Raise",
-        focus: "Vai ngang",
+        focus: "Vai giua, giup than tren nhin rong hon",
         photoKey: "bandFrontLateralRaiseLoop",
         equipment: "Band",
-        primaryMuscles: ["Vai"],
+        primaryMuscles: ["Vai giua"],
         secondaryMuscles: ["Trap"],
         brief: true,
         pins: [
@@ -1337,6 +1444,25 @@
           "Nang theo cung nhe, khong rut vai len tai.",
           "Dinh rep dung o ngang vai de giu tension o vai ngang.",
           "Chan band vua du, khong can nang qua cao."
+        ]
+      },
+      bandedChestFly: {
+        name: "Banded Chest Fly",
+        focus: "Nguc giua + nguc trong, nhan manh pha kep tay",
+        photoKey: "bandedChestFlyGallery",
+        equipment: "Band",
+        primaryMuscles: ["Nguc"],
+        secondaryMuscles: ["Vai truoc", "Tay sau"],
+        brief: true,
+        pins: [
+          { label: "Nguc", tone: "primary", top: "39%", left: "34%" },
+          { label: "Vai truoc", tone: "secondary", top: "31%", left: "23%" },
+          { label: "Tay sau", tone: "secondary", top: "50%", left: "48%" }
+        ],
+        cues: [
+          "Neo band sau nguoi, buoc len truoc de tao do cang vua du.",
+          "Kep hai tay vao truoc nguc theo cung tron, khuyu tay hoi cong.",
+          "Mo tay ra cham, cam nhan nguc gian roi kep lai bang nguc."
         ]
       },
       bandFrontRaise: {
@@ -1376,10 +1502,48 @@
           "Chi can do cang vua du de tay sau lam viec that."
         ]
       },
+      bandFacePull: {
+        name: "Band Face Pull",
+        focus: "Vai sau + rotator cuff, can bang vai va mo vai tot hon",
+        photoKey: "bandFacePullGallery",
+        equipment: "Band",
+        primaryMuscles: ["Vai sau"],
+        secondaryMuscles: ["Rotator cuff", "Trap", "Rhomboid"],
+        pins: [
+          { label: "Vai sau", tone: "primary", top: "31%", left: "78%" },
+          { label: "Lung tren", tone: "secondary", top: "46%", left: "52%" },
+          { label: "Trap", tone: "secondary", top: "20%", left: "52%" }
+        ],
+        cues: [
+          "Neo band ngang tam mat; lui lai den khi tay duoi thang ra truoc van co tension nhe.",
+          "Bat dau voi co tay thang, nguc mo, vai ha xuong; khong nghiêng nguoi ra sau de an gian.",
+          "Keo ve phia song mui/giua mat, khuyu tay mo ngang vai va di ra sau theo duong cheo nhe.",
+          "Cuoi rep xoay ngoai nhe de nam tay di gan tai, siet bai vai 1 nhip nhung khong rut vai len tai.",
+          "Tha ra cham 2-3 giay, giu band cang lien tuc; neu co co/upper trap an qua nhieu thi giam do cang band."
+        ]
+      },
+      bandTricepPushdown: {
+        name: "Band Tricep Pushdown",
+        focus: "Tay sau, khac goc voi overhead extension",
+        photoKey: "bandTricepPushdownGallery",
+        equipment: "Band",
+        primaryMuscles: ["Tay sau"],
+        secondaryMuscles: ["Vai", "Core"],
+        brief: true,
+        pins: [
+          { label: "Tay sau", tone: "primary", top: "34%", left: "76%" },
+          { label: "Vai", tone: "secondary", top: "23%", left: "67%" }
+        ],
+        cues: [
+          "Neo band tren cao, khuyu tay kep sat than.",
+          "Duoi tay xuong den khi tay sau siep chat, khong day bang vai.",
+          "Tha len cham de giu tension thay vi de band keo nguoc."
+        ]
+      },
       wideHandPushUp: {
         name: "Wide Hand Push Up",
         focus: "Them volume cho nguc, mo be ngang than tren",
-        photoKey: "wideHandPushUpLoop",
+        photoKey: "wideHandPushUpGallery",
         equipment: "Bodyweight",
         primaryMuscles: ["Nguc"],
         secondaryMuscles: ["Vai truoc", "Tay sau"],
@@ -1508,7 +1672,7 @@
         ]
       },
       bandReverseFly: {
-        name: "Band Face Pull",
+        name: "Band Reverse Fly",
         focus: "Vai sau + upper back",
         photoKey: "bandReverseFlyLoop",
         equipment: "Band",
@@ -1799,12 +1963,13 @@
         strategy: "Buoi push chinh dung anatomy/giai phau, uu tien band va bodyweight de vai-nguc-day hon ma khong dung ta.",
         exercises: [
           { key: "bandPushUp", prescription: "4 x 10-15", note: "Giu core cang va xuong cham." },
+          { key: "bandedChestFly", prescription: "4 x 12-15", note: "Kep nguc vao trong, mo tay ra cham de giu tension." },
+          { key: "bandLateralRaise", prescription: "5 x 15", note: "Bai chinh cho vai giua, dung o ngang vai." },
           { key: "pikePushUp", prescription: "4 x 8-12", note: "Day hong cao, ap luc vao vai truoc." },
-          { key: "bandLateralRaise", prescription: "5 x 15", note: "Nang den ngang vai." },
-          { key: "bandFrontRaise", prescription: "3 x 12", note: "Khong rut co, giu than on dinh." },
-          { key: "overheadBandTricepExtension", prescription: "4 x 12-15", note: "Co dinh khuyu tay o tren dau." }
+          { key: "bandFacePull", prescription: "4 x 15", note: "Keo ve mat, xoay ngoai nhe de can bang vai." },
+          { key: "bandTricepPushdown", prescription: "4 x 12-15", note: "Co dinh khuyu tay, duoi xuong bang tay sau." }
         ],
-        foot: "Neu buoi nay con du thoi gian, them 1 set lateral raise. Buoi push nay can form dep va do cang vua du hon la cu nay nhe."
+        foot: "Neu buoi nay con du thoi gian, them 1 set lateral raise hoac face pull. Buoi push nay uu tien nguc, vai giua, vai truoc va tay sau nhung van giu vai sau de can bang."
       },
       {
         id: "buoi-2",
@@ -1818,7 +1983,7 @@
           { key: "pullUp", prescription: "5 x toi da", note: "Neu rep tot, giu tempo xuong cham." },
           { key: "chinUp", prescription: "4 x toi da", note: "Khong can set nao cung fail." },
           { key: "bandLowRow", prescription: "4 x 12-15", note: "Moi ben tap sach de can doi lung." },
-          { key: "bandReverseFly", prescription: "4 x 15", note: "Bai posture rat dang giu." },
+          { key: "bandFacePull", prescription: "4 x 15", note: "Bai posture rat dang giu: keo ve mat, xoay ngoai va khong rut co." },
           { key: "bandBicepsCurl", prescription: "4 x 12-15", note: "Ket buoi de tay truoc van co volume." },
           { key: "bandHammerCurl", prescription: "3 x 12", note: "Co the thay cho 1 set curl thuong." }
         ],
@@ -1853,7 +2018,7 @@
           { key: "pullUp", prescription: "3 x 4-8", note: "Keo sach, khong can qua nhieu set." },
           { key: "chinUp", prescription: "3 x 4-8", note: "Neu set nao cung fail se qua met." },
           { key: "bandLateralRaise", prescription: "5 x 15", note: "Bai chinh de mo vai ngang." },
-          { key: "bandReverseFly", prescription: "4 x 15", note: "Giup posture va upper back ro hon." },
+          { key: "bandFacePull", prescription: "4 x 15", note: "Giup posture va upper back ro hon, uu tien form cham." },
           { key: "pushUp", prescription: "4 x 10-15", note: "Giup nguc mo ra va than tren can bang hon." },
           { key: "bandBicepsCurl", prescription: "4 x 12-15", note: "Cuoi buoi de giu tay truoc co volume." }
         ],
@@ -1892,6 +2057,7 @@
       "Lung tren": ["upperBack"],
       "Trap": ["upperBack"],
       "Rhomboid": ["upperBack"],
+      "Rotator cuff": ["shoulders", "upperBack"],
       "Mong": ["glutes"],
       "Dui truoc": ["quads"],
       "Dui sau": ["hamstrings"],
